@@ -5,6 +5,17 @@ https://minicpm-o.readthedocs.io/zh-cn/latest/finetune/llamafactory.html
 
 ### macos
 
+开始训练
+
+```bash
+llamafactory-cli train minicpm_config/minicpmv4_5_lora_sft.yaml
+```
+
+合并模型
+```bash
+llamafactory-cli export minicpm_config/minicpmv4_5_lora_export.yaml
+```
+
 ### wsl
 
 设置 venv
