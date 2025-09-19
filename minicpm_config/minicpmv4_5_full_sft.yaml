@@ -1,0 +1,42 @@
+### model
+model_name_or_path: openbmb/MiniCPM-V-4_5 # MiniCPM-o-2_6 or MiniCPM-V-2_6 or local path
+trust_remote_code: true
+freeze_vision_tower: true # Freeze vision module
+print_param_status: true
+flash_attn: fa2 # Use flash attention 2
+
+### method
+stage: sft
+do_train: true
+finetuning_type: full # Full fine-tuning
+deepspeed: configs/deepspeed/ds_z2_config.json # Use deepspeed zero2 distributed training
+ 
+### dataset
+dataset: cpmv_img # Use the key you added in data/dataset_info.json
+template: minicpm_v
+cutoff_len: 3072
+max_samples: 1000
+overwrite_cache: true
+preprocessing_num_workers: 16
+
+### output
+output_dir: saves/minicpmv4_5/full/sft
+logging_steps: 1
+save_steps: 100
+plot_loss: true
+overwrite_output_dir: true
+save_total_limit: 10
+
+### train
+per_device_train_batch_size: 2
+gradient_accumulation_steps: 1
+learning_rate: 1.0e-5
+num_train_epochs: 20.0
+lr_scheduler_type: cosine
+warmup_ratio: 0.1 # 10% warmup
+bf16: true
+ddp_timeout: 180000000
+save_only_model: true
+
+### eval
+do_eval: false
