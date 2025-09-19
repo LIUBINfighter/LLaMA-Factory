@@ -21,6 +21,11 @@ from transformers.training_args import _convert_str_dict
 
 from ..extras.misc import use_ray
 
+try:
+    from vllm.config import ParallelismConfig  # Adjust path if needed (vllm.config in recent versions)
+except ImportError:
+    from typing import Any
+    ParallelismConfig = Any  # Fallback to avoid NameError
 
 @dataclass
 class RayArguments:
